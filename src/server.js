@@ -20,7 +20,7 @@ const allowedOrigins = [
     .map((url) => url.trim().replace(/\/$/, "")),
 ];
 
-console.log("Allowed Origins:", allowedOrigins);
+
 
 const io = new Server(httpServer, {
   cors: {
@@ -33,11 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Debug Middleware: Log Origin
-app.use((req, res, next) => {
-  console.log(`[DEBUG] Method: ${req.method}, URL: ${req.url}, Origin: ${req.headers.origin}`);
-  next();
-});
+
 
 // Express CORS
 app.use(

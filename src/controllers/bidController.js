@@ -125,10 +125,8 @@ const hireFreelancer = asyncHandler(async (req, res) => {
                     type: 'success',
                     gigId: gig._id
                 });
-                console.log(`Notification sent to freelancer ${freelancerId} at socket ${socketId}`);
-            } else {
-                console.log(`Freelancer ${freelancerId} is not online.`);
             }
+
         }
 
         res.json({ message: 'Freelancer hired successfully', bid });
