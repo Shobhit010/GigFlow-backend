@@ -13,7 +13,11 @@ connectDB();
 const app = express();
 const httpServer = createServer(app);
 
-const allowedOrigins = [process.env.CLIENT_URL];
+const allowedOrigins = (process.env.CLIENT_URL || "")
+  .split(",")
+  .map(url => url.trim().replace(/\/$/, ""));
+
+console.log("Allowed Origins:", allowedOrigins);
 
 const io = new Server(httpServer, {
   cors: {
@@ -34,6 +38,7 @@ app.use(
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.log("Blocked by CORS:", origin);
         callback(new Error('Not allowed by CORS'));
       }
     },
