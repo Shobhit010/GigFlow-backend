@@ -13,9 +13,12 @@ connectDB();
 const app = express();
 const httpServer = createServer(app);
 
-const allowedOrigins = (process.env.CLIENT_URL || "")
-  .split(",")
-  .map(url => url.trim().replace(/\/$/, ""));
+const allowedOrigins = [
+  "https://gig-flow-nine-jade.vercel.app",
+  ...(process.env.CLIENT_URL || "")
+    .split(",")
+    .map((url) => url.trim().replace(/\/$/, "")),
+];
 
 console.log("Allowed Origins:", allowedOrigins);
 
