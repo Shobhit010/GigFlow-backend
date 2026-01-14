@@ -33,18 +33,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Debug Middleware: Log Origin
+app.use((req, res, next) => {
+  console.log(`[DEBUG] Method: ${req.method}, URL: ${req.url}, Origin: ${req.headers.origin}`);
+  next();
+});
+
 // Express CORS
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.log("Blocked by CORS:", origin);
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: allowedOrigins,
     credentials: true,
   })
 );
